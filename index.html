@@ -1,0 +1,44 @@
+<html>
+<head>
+  <title>VR Environment with 3D Models</title>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.1/nipplejs.min.js"></script>
+  <script src="js/environment.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="movement-controls"></div>
+  <a-scene>
+    <a-sky color="#000000"></a-sky>
+<!--     <a-plane position="0 0 0" rotation="-90 0 0" width="10" height="10" color="#7BC8A4"></a-plane> -->
+
+<!--     <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" shadow></a-box>
+    <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" shadow></a-sphere>
+    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" shadow></a-cylinder> -->
+
+     <a-entity
+      position="0 0 0"
+      scale="2 2 2"
+      gltf-model="/untitled.glb">
+    </a-entity> 
+<!--     animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true" -->
+<!--     <a-entity
+      position="2 0 -3"
+      scale="0.5 0.5 0.5"
+      obj-model="obj: url(https://raw.githubusercontent.com/aframevr/aframe/master/examples/assets/tree1.obj);
+                mtl: url(https://raw.githubusercontent.com/aframevr/aframe/master/examples/assets/tree1.mtl)"
+      animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+    </a-entity> -->
+
+    <a-text value="Welcome to VR!" position="-1 2 -3" color="#FFFFFF" scale="1.5 1.5 1.5"></a-text>
+
+    <a-entity position="0 1.6 0">
+      <a-camera look-controls wasd-controls></a-camera>
+    </a-entity>
+
+    <a-light type="ambient" color="#000001"></a-light>
+    <a-light type="point" intensity="0.5" position="2 4 4"></a-light>
+  </a-scene>
+</body>
+</html>
