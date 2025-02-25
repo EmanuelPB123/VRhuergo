@@ -1,0 +1,61 @@
+<html>
+<head>
+  <title>VR Environment with Duck</title>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.1/nipplejs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/environment.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="movement-controls"></div>
+  
+  <!-- Audio elements for collision sounds -->
+  <audio id="collision-sound-1" src="https://cdn.freesound.org/previews/417/417089_5121236-lq.mp3"></audio>
+  <audio id="collision-sound-2" src="https://cdn.freesound.org/previews/448/448084_6142149-lq.mp3"></audio>
+  <audio id="collision-sound-3" src="https://cdn.freesound.org/previews/411/411642_5121236-lq.mp3"></audio>
+
+  <a-scene>
+    <a-sky color="#000000"></a-sky>
+    <a-plane position="0 0 0" rotation="-90 0 0" width="30" height="30" material="color: #7BC8A4; roughness: 0.8; metalness: 0.2"></a-plane>
+
+    <!-- Clouds -->
+<!--     <a-entity position="-5 8 -10" rotation="0 0 0" clouds></a-entity>
+    <a-entity position="5 10 -12" rotation="0 0 0" clouds></a-entity>
+    <a-entity position="-8 9 -8" rotation="0 0 0" clouds></a-entity>
+    <a-entity position="8 7 -15" rotation="0 0 0" clouds></a-entity> -->
+
+    <!-- Flag -->
+    <!-- <a-entity position="5 3 0" rotation="0 -90 0" flag></a-entity> -->
+
+    <!-- Restricted zone markers -->
+    <a-box position="-2 0.5 -3" width="0.1" height="1" depth="4" material="color: #FF0000; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
+    <a-box position="2 0.5 -3" width="0.1" height="1" depth="4" material="color: #FF0000; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
+    <a-box position="0 0.5 -1" width="4" height="1" depth="0.1" material="color: #FF0000; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
+    <a-box position="0 0.5 -5" width="4" height="1" depth="0.1" material="color: #FF0000; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
+
+    <!-- Outer boundary walls -->
+    <a-box position="0 2 -15" width="30" height="4" depth="0.5" material="color: #808080; opacity: 0.7; roughness: 0.9; metalness: 0.1"></a-box>
+    <a-box position="0 2 7" width="30" height="4" depth="0.5" material="color: #808080; opacity: 0.7; roughness: 0.9; metalness: 0.1"></a-box>
+    <a-box position="-15 2 -4" width="0.5" height="4" depth="23" material="color: #808080; opacity: 0.7; roughness: 0.9; metalness: 0.1"></a-box>
+    <a-box position="15 2 -4" width="0.5" height="4" depth="23" material="color: #808080; opacity: 0.7; roughness: 0.9; metalness: 0.1"></a-box>
+
+    <a-entity
+      position="0 0 0"
+      scale="2 2 2"
+      gltf-model="untitled.glb">
+    </a-entity>
+
+    <a-text value="Welcome to VR!" position="-1 2 -3" color="#000000" scale="1.5 1.5 1.5"></a-text>
+    <a-text value="Restricted Area" position="-1 1.2 -3" color="#FF0000" scale="1 1 1"></a-text>
+
+    <a-entity position="0 1.6 0">
+      <a-camera look-controls></a-camera>
+    </a-entity>
+
+    <!-- <a-light type="ambient" color="#FFFFFF" intensity="0.8"></a-light> -->
+    <a-light type="directional" color="#FFFFFF" intensity="0.75" position="1 1 1"></a-light>
+  </a-scene>
+</body>
+</html>
