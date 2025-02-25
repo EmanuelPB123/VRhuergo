@@ -7,9 +7,9 @@ AFRAME.registerComponent('model-error', {
 });
 
 AFRAME.registerComponent('custom-controls', {
-  init: function() {
+  init: function () {
     this.el.removeAttribute('wasd-controls');
-    
+
     this.camera = this.el;
     this.moveSpeed = 0.15;
     this.currentSpeed = { x: 0, z: 0 };
@@ -27,7 +27,7 @@ AFRAME.registerComponent('custom-controls', {
       ArrowLeft: false,
       ArrowRight: false
     };
-    
+
     // Nipplejs joystick setup
     const options = {
       zone: document.getElementById('movement-controls'),
@@ -38,11 +38,11 @@ AFRAME.registerComponent('custom-controls', {
     };
 
     const manager = nipplejs.create(options);
-    
+
     manager.on('move', (evt, data) => {
-      const angle = (data.angle.radian + Math.PI/2); 
+      const angle = (data.angle.radian + Math.PI / 2);
       const force = Math.min(data.force, 1);
-      
+
       this.moveDirection.x = Math.sin(angle) * force;
       this.moveDirection.y = -Math.cos(angle) * force;
     });
@@ -67,7 +67,7 @@ AFRAME.registerComponent('custom-controls', {
         return false;
       }
     }, true);
-    
+
     window.addEventListener('keypress', (e) => {
       if (this.keys.hasOwnProperty(e.code)) {
         e.preventDefault();
@@ -76,28 +76,28 @@ AFRAME.registerComponent('custom-controls', {
     }, true);
 
     this.tick = AFRAME.utils.throttleTick(this.tick.bind(this), 16);
-    
+
     // Collision effects setup
     this.collisionFlash = document.createElement('div');
     this.collisionFlash.className = 'collision-flash';
     document.body.appendChild(this.collisionFlash);
-    
+
     this.isColliding = false;
     this.collisionTimeout = null;
-    
+
     this.collisionSounds = [
       document.getElementById('collision-sound-1'),
       document.getElementById('collision-sound-2'),
       document.getElementById('collision-sound-3')
     ];
-    
+
     this.lastSoundTime = 0;
-    this.soundCooldown = 500; 
+    this.soundCooldown = 500;
   },
 
-  updateKeyboardDirection: function() {
+  updateKeyboardDirection: function () {
     this.keyboardDirection.set(0, 0);
-    
+
     if (this.keys.KeyW || this.keys.ArrowUp) this.keyboardDirection.y += 1;
     if (this.keys.KeyS || this.keys.ArrowDown) this.keyboardDirection.y -= 1;
     if (this.keys.KeyD || this.keys.ArrowRight) this.keyboardDirection.x += 1;
@@ -108,12 +108,12 @@ AFRAME.registerComponent('custom-controls', {
     }
   },
 
-  playRandomCollisionSound: function() {
+  playRandomCollisionSound: function () {
     const currentTime = Date.now();
     if (currentTime - this.lastSoundTime < this.soundCooldown) {
       return;
     }
-    
+
     const randomSound = this.collisionSounds[Math.floor(Math.random() * this.collisionSounds.length)];
     randomSound.currentTime = 0;
     randomSound.play().catch(error => {
@@ -122,16 +122,16 @@ AFRAME.registerComponent('custom-controls', {
     this.lastSoundTime = currentTime;
   },
 
-  showCollisionEffect: function() {
+  showCollisionEffect: function () {
     if (!this.isColliding) {
       this.isColliding = true;
       this.collisionFlash.style.opacity = '1';
       this.playRandomCollisionSound();
-      
+
       if (this.collisionTimeout) {
         clearTimeout(this.collisionTimeout);
       }
-      
+
       this.collisionTimeout = setTimeout(() => {
         this.collisionFlash.style.opacity = '0';
         this.isColliding = false;
@@ -139,17 +139,17 @@ AFRAME.registerComponent('custom-controls', {
     }
   },
 
-  isInRestrictedZone: function(position) {
-    const innerRestricted = (position.x >= -2 && position.x <= 2 && 
-                           position.z >= -5 && position.z <= -1);
-    
-    const outsideBounds = (position.x <= -14.5 || position.x >= 14.5 || 
-                          position.z <= -14.5 || position.z >= 6.5);
-    
+  isInRestrictedZone: function (position) {
+    const innerRestricted = (position.x >= -15 && position.x <= 19 &&
+      position.z >= -68 && position.z <= -31);
+
+    const outsideBounds = (position.x <= -105 || position.x >= 100 ||
+      position.z <= -105 || position.z >= 60);
+
     return innerRestricted || outsideBounds;
   },
 
-  checkCollision: function(position, direction) {
+  checkCollision: function (position, direction) {
     const rays = [
       direction.clone(),
       direction.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 4),
@@ -160,7 +160,7 @@ AFRAME.registerComponent('custom-controls', {
       this.raycaster.set(position, rayDir);
       const collisionObjects = document.querySelectorAll('[gltf-model], [obj-model], a-plane, a-box');
       const collisionArray = [];
-      
+
       collisionObjects.forEach(object => {
         if (object.object3D) {
           object.object3D.updateMatrixWorld();
@@ -180,26 +180,26 @@ AFRAME.registerComponent('custom-controls', {
     return false;
   },
 
-  tick: function() {
+  tick: function () {
     this.updateKeyboardDirection();
-    
+
     const combinedMove = new THREE.Vector2(
       this.moveDirection.x + this.keyboardDirection.x,
       this.moveDirection.y + this.keyboardDirection.y
     );
-    
+
     if (combinedMove.length() > 0) {
       const rotation = this.camera.object3D.rotation;
       const forward = new THREE.Vector3(0, 0, -1);
       const right = new THREE.Vector3(1, 0, 0);
-      
+
       forward.applyAxisAngle(new THREE.Vector3(0, 1, 0), rotation.y);
       right.applyAxisAngle(new THREE.Vector3(0, 1, 0), rotation.y);
-      
+
       const moveVector = new THREE.Vector3();
       moveVector.addScaledVector(forward, combinedMove.y * this.moveSpeed);
       moveVector.addScaledVector(right, combinedMove.x * this.moveSpeed);
-      
+
       const currentPosition = this.camera.object3D.position;
       const proposedPosition = currentPosition.clone();
       proposedPosition.add(moveVector);
@@ -211,7 +211,7 @@ AFRAME.registerComponent('custom-controls', {
 
       const xMove = new THREE.Vector3(moveVector.x, 0, 0);
       const zMove = new THREE.Vector3(0, 0, moveVector.z);
-      
+
       let canMoveX = true;
       let canMoveZ = true;
 
@@ -248,6 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const camera = document.querySelector('a-camera');
-  camera.removeAttribute('wasd-controls');  
+  camera.removeAttribute('wasd-controls');
   camera.setAttribute('custom-controls', '');
 });
