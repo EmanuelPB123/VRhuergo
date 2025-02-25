@@ -1,6 +1,7 @@
 <html>
+
 <head>
-  <title>VR Huergo Official</title>
+  <title>VR Chalet Huergo Official</title>
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.1/nipplejs.min.js"></script>
@@ -8,9 +9,10 @@
   <script src="js/environment.js"></script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
   <div id="movement-controls"></div>
-  
+
   <!-- Audio elements for collision sounds -->
   <audio id="collision-sound-1" src="https://cdn.freesound.org/previews/417/417089_5121236-lq.mp3"></audio>
   <audio id="collision-sound-2" src="https://cdn.freesound.org/previews/448/448084_6142149-lq.mp3"></audio>
@@ -18,10 +20,10 @@
 
   <a-scene>
     <a-sky color="#000000"></a-sky>
-    <a-plane position="0 0 0" rotation="-90 0 0" width="30" height="30" material="color: #7BC8A4; roughness: 0.8; metalness: 0.2"></a-plane>
+    <!-- <a-plane position="0 0 0" rotation="-90 0 0" width="125" height="120" material="color: #7BC8A4; roughness: 0.8; metalness: 0.2"></a-plane> -->
 
     <!-- Clouds -->
-<!--     <a-entity position="-5 8 -10" rotation="0 0 0" clouds></a-entity>
+    <!--     <a-entity position="-5 8 -10" rotation="0 0 0" clouds></a-entity>
     <a-entity position="5 10 -12" rotation="0 0 0" clouds></a-entity>
     <a-entity position="-8 9 -8" rotation="0 0 0" clouds></a-entity>
     <a-entity position="8 7 -15" rotation="0 0 0" clouds></a-entity> -->
@@ -30,32 +32,39 @@
     <!-- <a-entity position="5 3 0" rotation="0 -90 0" flag></a-entity> -->
 
     <!-- Restricted zone markers -->
-    <a-box position="-2 0.5 -3" width="0.1" height="1" depth="4" material="color: #FF0000; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
-    <a-box position="2 0.5 -3" width="0.1" height="1" depth="4" material="color: #FF0000; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
-    <a-box position="0 0.5 -1" width="4" height="1" depth="0.1" material="color: #FF0000; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
-    <a-box position="0 0.5 -5" width="4" height="1" depth="0.1" material="color: #FF0000; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
+    <!-- izq --><a-box position="-15 0.5 -49.5" width="0.1" height="1" depth="37"
+      material="color: #ff5500; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
+    <!-- der --><a-box position="19 0.5 -49.5" width="0.1" height="1" depth="37"
+      material="color: #ff5500; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
+    <!-- atras --><a-box position="2 0.5 -31" width="34" height="1" depth="0.1"
+      material="color: #ff5500; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
+    <!-- adelante --><a-box position="2 0.5 -68" width="34" height="1" depth="0.1"
+      material="color: #ff5500; opacity: 0.5; roughness: 0.7; metalness: 0.3"></a-box>
 
     <!-- Outer boundary walls -->
-    <a-box position="0 2 -15" width="30" height="4" depth="0.5" material="color: #808080; opacity: 0.7; roughness: 0.9; metalness: 0.1"></a-box>
-    <a-box position="0 2 7" width="30" height="4" depth="0.5" material="color: #808080; opacity: 0.7; roughness: 0.9; metalness: 0.1"></a-box>
-    <a-box position="-15 2 -4" width="0.5" height="4" depth="23" material="color: #808080; opacity: 0.7; roughness: 0.9; metalness: 0.1"></a-box>
-    <a-box position="15 2 -4" width="0.5" height="4" depth="23" material="color: #808080; opacity: 0.7; roughness: 0.9; metalness: 0.1"></a-box>
+    <!-- adelante --><a-box position="0 -10 -105" width="209" height="25" depth="0.5"
+      material="color: #ff5500; opacity: 0.9; roughness: 0.1; metalness: 0.1"></a-box>
+    <!-- atras --><a-box position="0 -10 60" width="209" height="25" depth="0.5"
+      material="color: #ff5500; opacity: 0.9; roughness: 0.1; metalness: 0.1"></a-box>
+    <!-- izq --><a-box position="-105 -10 -22.5" width="0.5" height="25" depth="168"
+      material="color: #ff5500; opacity: 0.9; roughness: 0.1; metalness: 0.1"></a-box>
+    <!-- der --><a-box position="100 -10 -22.5" width="0.5" height="25" depth="168"
+      material="color: #ff5500; opacity: 0.9; roughness: 0.1; metalness: 0.1"></a-box>
 
-    <a-entity
-      position="0 0 0"
-      scale="2 2 2"
-      gltf-model="untitled.glb">
+    <a-entity position="-22 0 0" scale="2 2 2" gltf-model="untitled.glb">
     </a-entity>
 
-    <a-text value="Welcome to VR!" position="-1 2 -3" color="#000000" scale="1.5 1.5 1.5"></a-text>
-    <a-text value="Restricted Area" position="-1 1.2 -3" color="#FF0000" scale="1 1 1"></a-text>
+    <a-text value="Bienvenido al Chalet Huergo" position="-4 5 -4" color="#ffffff" scale="3 3 3"></a-text>
+    <a-text value="SALIDA" position="4 5 -4" color="#ffffff" scale="3 3 3" rotation="0 180"></a-text >
+    <a-text value="Restricted Area" position="9.5 3 -31" color="#FF0000" scale="1 1 1"></a-text>
 
     <a-entity position="0 1.6 0">
       <a-camera look-controls></a-camera>
     </a-entity>
 
-    <!-- <a-light type="ambient" color="#FFFFFF" intensity="0.8"></a-light> -->
-    <a-light type="directional" color="#FFFFFF" intensity="0.75" position="1 1 1"></a-light>
+    <a-light type="ambient" color="#fff5ab" intensity="0.1"></a-light>
+    <a-light type="directional" color="#fff5ab" intensity="0.75" position="1 1 1"></a-light>
   </a-scene>
 </body>
+
 </html>
