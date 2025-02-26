@@ -7,6 +7,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.1/nipplejs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="js/environment.js"></script>
+  <script src="js/light.js"></script>
+  <script src="js/linterna.js"></script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -22,14 +24,6 @@
     <a-sky color="#000000"></a-sky>
     <!-- <a-plane position="0 0 0" rotation="-90 0 0" width="125" height="120" material="color: #7BC8A4; roughness: 0.8; metalness: 0.2"></a-plane> -->
 
-    <!-- Clouds -->
-    <!--     <a-entity position="-5 8 -10" rotation="0 0 0" clouds></a-entity>
-    <a-entity position="5 10 -12" rotation="0 0 0" clouds></a-entity>
-    <a-entity position="-8 9 -8" rotation="0 0 0" clouds></a-entity>
-    <a-entity position="8 7 -15" rotation="0 0 0" clouds></a-entity> -->
-
-    <!-- Flag -->
-    <!-- <a-entity position="5 3 0" rotation="0 -90 0" flag></a-entity> -->
 
     <!-- Restricted zone markers -->
     <!-- izq --><a-box position="-15 0.5 -49.5" width="0.1" height="1" depth="37"
@@ -51,20 +45,66 @@
     <!-- der --><a-box position="100 -10 -22.5" width="0.5" height="25" depth="168"
       material="color: #ff5500; opacity: 0.9; roughness: 0.1; metalness: 0.1"></a-box>
 
-    <a-entity position="-22 0 0" scale="2 2 2" gltf-model="untitled.glb">
+    <!-- edificio -->
+    <a-entity position="-22 0 0" scale="2 2 2" gltf-model="untitled.glb" shadow="true">
     </a-entity>
 
+
     <a-text value="Bienvenido al Chalet Huergo" position="-4 5 -4" color="#ffffff" scale="3 3 3"></a-text>
-    <a-text value="SALIDA" position="4 5 -4" color="#ffffff" scale="3 3 3" rotation="0 180"></a-text >
+    <a-text value="SALIDA" position="1 5 -4" color="#ffffff" scale="3 3 3" rotation="0 180"></a-text>
     <a-text value="Restricted Area" position="9.5 3 -31" color="#FF0000" scale="1 1 1"></a-text>
 
     <a-entity position="0 1.6 0">
-      <a-camera look-controls></a-camera>
+      <a-camera look-controls>
+        <!-- linterna -->
+        <!-- Cámara con linterna adjunta -->
+        <a-entity id="flashlight" light="type: spot; 
+            color: #fff; 
+            intensity: 0.1; 
+            angle: 45; 
+            penumbra: 0.2; 
+            decay: 1.5;
+            castShadow: true;
+            shadowMapWidth: 1024;
+            shadowMapHeight: 1024" position="0 0 0" rotation="0 0 0">
+        </a-entity>
+
+        <!-- Modelo visual de la linterna (opcional) -->
+        <a-entity position="0.2 -0.3 -0.2" rotation="0 -20 0">
+          <a-cylinder color="#333" height="0.1" radius="0.02" position="0 0 0"></a-cylinder>
+          <a-cylinder color="#555" height="0.02" radius="0.03" position="0 -0.06 0"></a-cylinder>
+        </a-entity>
+      </a-camera>
     </a-entity>
 
-    <a-light type="ambient" color="#fff5ab" intensity="0.1"></a-light>
-    <a-light type="directional" color="#fff5ab" intensity="0.75" position="1 1 1"></a-light>
+    <!-- luces -->
+    <!-- <a-light type="ambient" color="#fff5ab" intensity="0.1"></a-light> -->
+    <!-- <a-light type="directional" color="#fff5ab" intensity="0.1" position="1 1 1"></a-light> -->
+
+    <!--     <a-light type="spot" color="#00ff00" position="2 3 0" angle="45" penumbra="0.2" target="#target-object"
+      light-flicker="minIntensity: 0.7; maxIntensity: 0.9; speed: 0.01">
+      <a-entity light-helper="type: spot"></a-entity>
+    </a-light> -->
+    <!-- Luz puntual con helper visual -->
+    <a-light type="point" color="#ffd042" intensity="0.1" position="6 3 -31.5" cast-shadow="true"
+      shadow="mapSize: 1024; bias: -0.001; radius: 1">
+      <a-sphere radius="0.1" color="#ffd042" material="emissive: #fff0c2"></a-sphere>
+    </a-light>
+
+    <a-light type="point" color="#ffd042" intensity="0.1" position="15 3 -31.5" cast-shadow="true"
+      shadow="mapSize: 1024; bias: -0.001; radius: 1">
+      <a-sphere radius="0.1" color="#ffd042" material="emissive: #fff0c2"></a-sphere>
+    </a-light>
+
+    <a-light type="point" color="#ffd042" intensity="0.1" position="-5 4.5 -39.5" cast-shadow="true"
+      shadow="mapSize: 1024; bias: -0.001; radius: 1">
+      <a-sphere radius="0.1" color="#ffd042" material="emissive: #fff0c2"></a-sphere>
+    </a-light>
+
+
   </a-scene>
+
+
 </body>
 
 </html>
