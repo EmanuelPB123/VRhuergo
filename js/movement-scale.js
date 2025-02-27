@@ -2,7 +2,7 @@
 
 AFRAME.registerComponent('movement-scale', {
   schema: {
-    scale: {type: 'number', default: 3.0} // Cada paso real son 3 pasos virtuales
+    scale: {type: 'number', default: 10.0} // Cada paso real son 3 pasos virtuales
   },
   
   init: function() {
