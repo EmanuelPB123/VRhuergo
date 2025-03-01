@@ -11,10 +11,10 @@ AFRAME.registerComponent('custom-controls', {
     this.el.removeAttribute('wasd-controls');
 
     this.camera = this.el;
-    this.moveSpeed = 0.15;
+    this.moveSpeed = 0.003; // Scaled from 0.15 to 0.003 (1/50)
     this.currentSpeed = { x: 0, z: 0 };
     this.raycaster = new THREE.Raycaster();
-    this.collisionDistance = 0.5;
+    this.collisionDistance = 0.01; // Scaled from 0.5 to 0.01 (1/50)
     this.moveDirection = new THREE.Vector2(0, 0);
     this.keyboardDirection = new THREE.Vector2(0, 0);
     this.keys = {
@@ -140,11 +140,13 @@ AFRAME.registerComponent('custom-controls', {
   },
 
   isInRestrictedZone: function (position) {
-    const innerRestricted = (position.x >= -15 && position.x <= 19 &&
-      position.z >= -68 && position.z <= -31);
+    // Scaled inner restricted zone (1/50 of original values)
+    const innerRestricted = (position.x >= -0.3 && position.x <= 0.38 &&
+      position.z >= -1.36 && position.z <= -0.62);
 
-    const outsideBounds = (position.x <= -105 || position.x >= 100 ||
-      position.z <= -105 || position.z >= 60);
+    // Scaled outer bounds (1/50 of original values)
+    const outsideBounds = (position.x <= -2.1 || position.x >= 2 ||
+      position.z <= -2.1 || position.z >= 1.2);
 
     return innerRestricted || outsideBounds;
   },
